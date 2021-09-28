@@ -17,8 +17,5 @@ def VolumekNN(xin, xout, k=1, periodic=0):
     
 def CDFkNN(xin, xout, kneighbors=1, periodic=0,compress="none",Ninterpolants=500):
     vol = VolumekNN(xin, xout, k=kneighbors, periodic=periodic)
-    for c, k in enumerate(np.nditer(np.array(kneighbors))):
-        vol[:,c] = np.sort(vol[:,c])
-    N = len(vol)
-    cdfs = [SE_distribution(vol[:,k],compress=compress,Ninterpolants=Ninterpolants) for k in kneighbors]
+    cdfs = [SE_distribution(vol[:,c],compress=compress,Ninterpolants=Ninterpolants) for c,k in enumerate(np.nditer(kneighbors))]
     return cdfs
