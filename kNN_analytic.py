@@ -220,3 +220,91 @@ def PG19(nV, sig):
 
 def PG20(nV, sig):
 	return ((np.exp((nV*(-2 + nV*sig**2))/2.)*nV**20*(1 + sig**2*(190 - 20*nV + 95*(153 + 2*(-18 + nV)*nV)*sig**2 - 570*(-1020 + nV*(408 + nV*(-51 + 2*nV)))*sig**4 + 4845*(2730 + nV*(-1680 + nV*(360 + (-32 + nV)*nV)))*sig**6 - 3876*(-45045 + 2*nV*(20475 + nV*(-6825 + nV*(1050 + nV*(-75 + 2*nV)))))*sig**8 + 9690*(135135 + 2*nV*(-90090 + nV*(45045 + nV*(-10920 + nV*(1365 + 2*(-42 + nV)*nV)))))*sig**10 - 19380*(-270270 + nV*(540540 + nV*(-405405 + 2*nV*(75075 + nV*(-15015 + nV*(1638 + nV*(-91 + 2*nV)))))))*sig**12 + 62985*(155925 + 2*nV*(-249480 + nV*(291060 + nV*(-166320 + nV*(51975 + nV*(-9240 + nV*(924 + (-48 + nV)*nV)))))))*sig**14 - 41990*(-155925 + 2*nV*(467775 + nV*(-935550 + nV*(873180 + nV*(-436590 + nV*(124740 + nV*(-20790 + nV*(1980 + nV*(-99 + 2*nV)))))))))*sig**16 + 46189*(14175 + 2*nV*(-141750 + nV*(637875 + nV*(-1134000 + nV*(992250 + nV*(-476280 + nV*(132300 + nV*(-21600 + nV*(2025 + 2*(-50 + nV)*nV)))))))))*sig**18 - 41990*nV**2*(-155925 + 2*nV*(467775 + nV*(-935550 + nV*(873180 + nV*(-436590 + nV*(124740 + nV*(-20790 + nV*(1980 + nV*(-99 + 2*nV)))))))))*sig**20 + 62985*nV**4*(155925 + 2*nV*(-249480 + nV*(291060 + nV*(-166320 + nV*(51975 + nV*(-9240 + nV*(924 + (-48 + nV)*nV)))))))*sig**22 - 19380*nV**6*(-270270 + nV*(540540 + nV*(-405405 + 2*nV*(75075 + nV*(-15015 + nV*(1638 + nV*(-91 + 2*nV)))))))*sig**24 + 9690*nV**8*(135135 + 2*nV*(-90090 + nV*(45045 + nV*(-10920 + nV*(1365 + 2*(-42 + nV)*nV)))))*sig**26 - 3876*nV**10*(-45045 + 2*nV*(20475 + nV*(-6825 + nV*(1050 + nV*(-75 + 2*nV)))))*sig**28 + 4845*nV**12*(2730 + nV*(-1680 + nV*(360 + (-32 + nV)*nV)))*sig**30 - 570*nV**14*(-1020 + nV*(408 + nV*(-51 + 2*nV)))*sig**32 + 95*nV**16*(153 + 2*(-18 + nV)*nV)*sig**34 + 10*(19 - 2*nV)*nV**18*sig**36 + nV**20*sig**38)))/2.43290200817664e18)
+
+
+
+# Perform unit tests if this file is run as a script
+if __name__ == "__main__":
+	np.seterr(over='ignore', under='ignore', invalid='ignore')
+	from pathlib import Path
+	Path("./test_outputs/").mkdir(parents=True, exist_ok=True)
+	
+
+	# Output sigma = 0 gaussian tests, compared to poisson
+	import matplotlib.pyplot as plt
+	dcount = 1e-6
+	ylim = 1e-3
+	for k in np.arange(1, 13 + 1):
+		plt.figure(k, figsize=(12,8))
+
+		# X axis
+		nV = np.logspace(np.log10(dcount), np.log10(25*k), 1000)
+		x = nV**(1/3)
+
+		# Poisson result
+		pois = 1 - np.sum([PPoisson(kk, nV) for kk in range(0,k+1)], axis=0)
+		poisson = np.minimum(pois, 1-pois)
+		xpois = x[poisson>ylim]
+		poisson = poisson[poisson>ylim]
+
+		# Gaussian result
+		sig = 0
+		gauss = CDFGaussian(k, nV, sig)
+		gaussian = np.minimum(gauss, 1-gauss)
+		xgauss = x[gaussian>ylim]
+		gaussian = gaussian[gaussian>ylim]
+
+		# Plot and label
+		plt.loglog(xpois, poisson, label='Poisson')
+		plt.loglog(xgauss, gaussian, '--', label="Gaussian(sig=0)")
+		plt.xlabel("Distance")
+		plt.ylabel(f"GRF {k}NN Peaked CDF")
+		plt.title(f"GRF {k}NN Peaked CDF")
+		plt.ylim(ylim)
+		plt.legend()
+		plt.grid()
+
+		# Save test output
+		plt.savefig(f"test_outputs/gauss_zerosig_{k}", dpi=230)
+		plt.clf()
+
+	# Output gaussian tests, compared to poisson
+	import matplotlib.pyplot as plt
+	dcount = 1e-7
+	ylim = 1e-3
+	for k in np.arange(1, 13 + 1):
+		plt.figure(k, figsize=(12,8))
+
+		# X axis
+		nV = np.logspace(np.log10(dcount), np.log10(40*k), 1000)
+		x = nV**(1/3)
+
+		# Poisson result
+		pois = 1 - np.sum([PPoisson(kk, nV) for kk in range(0,k+1)], axis=0)
+		poisson = np.minimum(pois, 1-pois)
+		xpois = x[poisson>ylim]
+		poisson = poisson[poisson>ylim]
+
+		# Gaussian result
+		sig = 1e-3 * nV*(-3/2)
+		gauss = CDFGaussian(k, nV, sig)
+		gaussian = np.minimum(gauss, 1-gauss)
+		xgauss = x[gaussian>ylim]
+		gaussian = gaussian[gaussian>ylim]
+
+		# Plot and label
+		plt.loglog(xpois, poisson, label='Poisson')
+		plt.loglog(xgauss, gaussian, '--', label="Gaussian")
+		plt.xlabel("Distance")
+		plt.ylabel(f"GRF {k}NN Peaked CDF")
+		plt.title(f"GRF {k}NN Peaked CDF")
+		plt.ylim(ylim)
+		plt.legend()
+		plt.grid()
+
+		# Save test output
+		plt.savefig(f"test_outputs/gauss_nonzerosig_{k}", dpi=230)
+		plt.clf()
+
+
+	
