@@ -34,28 +34,28 @@ def PGaussian(k, nV, sig):
 	for more detail of the Gaussian random field aspect and equation 8 in that paper
 	which define these P_{k|V}. 	
 	'''
-	return { 0: OneMinusPGg0(nV,sig) \
-			,1: PG1(nV,sig) \
-			,2: PG2(nV,sig) \
-			,3: PG3(nV,sig) \
-			,4: PG4(nV,sig) \
-			,5: PG5(nV,sig) \
-			,6: PG6(nV,sig) \
-			,7: PG7(nV,sig) \
-			,8: PG8(nV,sig) \
-			,9: PG9(nV,sig) \
-			,10: PG10(nV,sig) \
-			,11: PG11(nV,sig) \
-			,12: PG12(nV,sig) \
-			,13: PG13(nV,sig) \
-			,14: PG14(nV,sig) \
-			,15: PG15(nV,sig) \
-			,16: PG16(nV,sig) \
-			,17: PG17(nV,sig) \
-			,18: PG18(nV,sig) \
-			,19: PG19(nV,sig) \
-			,20: PG20(nV,sig) \
-		}.get(k, 0)    # PG_0 will be returned default if x is not found
+	return { 0: OneMinusPGg0 \
+			,1: PG1 \
+			,2: PG2 \
+			,3: PG3 \
+			,4: PG4 \
+			,5: PG5 \
+			,6: PG6 \
+			,7: PG7 \
+			,8: PG8 \
+			,9: PG9 \
+			,10: PG10 \
+			,11: PG11 \
+			,12: PG12 \
+			,13: PG13 \
+			,14: PG14 \
+			,15: PG15 \
+			,16: PG16 \
+			,17: PG17 \
+			,18: PG18 \
+			,19: PG19 \
+			,20: PG20 \
+		}.get(k, OneMinusPGg0)(nV, sig)    # OneMinusPGg0 will be returned default if x is not found
 
 def CDFGaussian(k, nV, sig):
 	''' Calculates the CDF of finding >k points in a volume V for a 
@@ -65,21 +65,21 @@ def CDFGaussian(k, nV, sig):
 	for more detail of the Gaussian random field aspect and equation 8 in that paper
 	which define these P_{k|V}. 	
 	'''
-	return { 0: PGg0(nV,sig) \
-			,1: PGg1(nV,sig) \
-			,2: PGg2(nV,sig) \
-			,3: PGg3(nV,sig) \
-			,4: PGg4(nV,sig) \
-			,5: PGg5(nV,sig) \
-			,6: PGg6(nV,sig) \
-			,7: PGg7(nV,sig) \
-			,8: PGg8(nV,sig) \
-			,9: PGg9(nV,sig) \
-			,10: PGg10(nV,sig) \
-			,11: PGg11(nV,sig) \
-			,12: PGg12(nV,sig) \
-			,13: PGg13(nV,sig) \
-		}.get(k, 0)    # PG_0 will be returned default if x is not found
+	return { 0: PGg0 \
+			,1: PGg1 \
+			,2: PGg2 \
+			,3: PGg3 \
+			,4: PGg4 \
+			,5: PGg5 \
+			,6: PGg6 \
+			,7: PGg7 \
+			,8: PGg8 \
+			,9: PGg9 \
+			,10: PGg10 \
+			,11: PGg11 \
+			,12: PGg12 \
+			,13: PGg13 \
+		}.get(k, PGg0)(nV, sig)    # PG_0 will be returned default if x is not found
 
 ''' This code is generated with Mathematica. 
 Here it is the source, just in case you ever need to change anything.
