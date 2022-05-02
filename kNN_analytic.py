@@ -286,7 +286,7 @@ if __name__ == "__main__":
 		poisson = poisson[poisson>ylim]
 
 		# Gaussian result
-		sig = 1e-3 * nV**(-3/2) * (1 - np.exp(-nV))
+		sig = 5e-1 * (nV**(-1/2) * (nV > 1).astype(float) + (nV <=1 ).astype(float))
 		gauss = CDFGaussian(k-1, nV, sig)
 		gaussian = np.minimum(gauss, 1-gauss)
 		xgauss = x[gaussian>ylim]
