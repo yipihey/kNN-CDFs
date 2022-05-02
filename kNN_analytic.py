@@ -238,18 +238,18 @@ if __name__ == "__main__":
 		plt.figure(k, figsize=(12,8))
 
 		# X axis
-		nV = np.logspace(np.log10(dcount), np.log10(25*k), 1000)
+		nV = np.logspace(np.log10(dcount), np.log10(40*k), 1000)
 		x = nV**(1/3)
 
 		# Poisson result
-		pois = 1 - np.sum([PPoisson(kk, nV) for kk in range(0,k+1)], axis=0)
+		pois = 1 - np.sum([PPoisson(kk-1, nV) for kk in range(0,k+1)], axis=0)
 		poisson = np.minimum(pois, 1-pois)
 		xpois = x[poisson>ylim]
 		poisson = poisson[poisson>ylim]
 
 		# Gaussian result
 		sig = 0
-		gauss = CDFGaussian(k, nV, sig)
+		gauss = CDFGaussian(k-1, nV, sig)
 		gaussian = np.minimum(gauss, 1-gauss)
 		xgauss = x[gaussian>ylim]
 		gaussian = gaussian[gaussian>ylim]
@@ -280,14 +280,14 @@ if __name__ == "__main__":
 		x = nV**(1/3)
 
 		# Poisson result
-		pois = 1 - np.sum([PPoisson(kk, nV) for kk in range(0,k+1)], axis=0)
+		pois = 1 - np.sum([PPoisson(kk-1, nV) for kk in range(0,k+1)], axis=0)
 		poisson = np.minimum(pois, 1-pois)
 		xpois = x[poisson>ylim]
 		poisson = poisson[poisson>ylim]
 
 		# Gaussian result
-		sig = 1e-3 * nV*(-3/2)
-		gauss = CDFGaussian(k, nV, sig)
+		sig = 1e-3 * nV**(-3/2) * (1 - np.exp(-nV))
+		gauss = CDFGaussian(k-1, nV, sig)
 		gaussian = np.minimum(gauss, 1-gauss)
 		xgauss = x[gaussian>ylim]
 		gaussian = gaussian[gaussian>ylim]
