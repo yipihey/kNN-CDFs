@@ -34,28 +34,28 @@ def PGaussian(k, nV, sig):
 	for more detail of the Gaussian random field aspect and equation 8 in that paper
 	which define these P_{k|V}. 	
 	'''
-	return { 0: OneMinusPGg0(nV,sig) \
-			,1: PG1(nV,sig) \
-			,2: PG2(nV,sig) \
-			,3: PG3(nV,sig) \
-			,4: PG4(nV,sig) \
-			,5: PG5(nV,sig) \
-			,6: PG6(nV,sig) \
-			,7: PG7(nV,sig) \
-			,8: PG8(nV,sig) \
-			,9: PG9(nV,sig) \
-			,10: PG10(nV,sig) \
-			,11: PG11(nV,sig) \
-			,12: PG12(nV,sig) \
-			,13: PG13(nV,sig) \
-			,14: PG14(nV,sig) \
-			,15: PG15(nV,sig) \
-			,16: PG16(nV,sig) \
-			,17: PG17(nV,sig) \
-			,18: PG18(nV,sig) \
-			,19: PG19(nV,sig) \
-			,20: PG20(nV,sig) \
-		}.get(k, 0)    # PG_0 will be returned default if x is not found
+	return { 0: OneMinusPGg0 \
+			,1: PG1 \
+			,2: PG2 \
+			,3: PG3 \
+			,4: PG4 \
+			,5: PG5 \
+			,6: PG6 \
+			,7: PG7 \
+			,8: PG8 \
+			,9: PG9 \
+			,10: PG10 \
+			,11: PG11 \
+			,12: PG12 \
+			,13: PG13 \
+			,14: PG14 \
+			,15: PG15 \
+			,16: PG16 \
+			,17: PG17 \
+			,18: PG18 \
+			,19: PG19 \
+			,20: PG20 \
+		}.get(k, OneMinusPGg0)(nV, sig)    # OneMinusPGg0 will be returned default if x is not found
 
 def CDFGaussian(k, nV, sig):
 	''' Calculates the CDF of finding >k points in a volume V for a 
@@ -65,21 +65,21 @@ def CDFGaussian(k, nV, sig):
 	for more detail of the Gaussian random field aspect and equation 8 in that paper
 	which define these P_{k|V}. 	
 	'''
-	return { 0: PGg0(nV,sig) \
-			,1: PGg1(nV,sig) \
-			,2: PGg2(nV,sig) \
-			,3: PGg3(nV,sig) \
-			,4: PGg4(nV,sig) \
-			,5: PGg5(nV,sig) \
-			,6: PGg6(nV,sig) \
-			,7: PGg7(nV,sig) \
-			,8: PGg8(nV,sig) \
-			,9: PGg9(nV,sig) \
-			,10: PGg10(nV,sig) \
-			,11: PGg11(nV,sig) \
-			,12: PGg12(nV,sig) \
-			,13: PGg13(nV,sig) \
-		}.get(k, 0)    # PG_0 will be returned default if x is not found
+	return { 0: PGg0 \
+			,1: PGg1 \
+			,2: PGg2 \
+			,3: PGg3 \
+			,4: PGg4 \
+			,5: PGg5 \
+			,6: PGg6 \
+			,7: PGg7 \
+			,8: PGg8 \
+			,9: PGg9 \
+			,10: PGg10 \
+			,11: PGg11 \
+			,12: PGg12 \
+			,13: PGg13 \
+		}.get(k, PGg0)(nV, sig)    # PG_0 will be returned default if x is not found
 
 ''' This code is generated with Mathematica. 
 Here it is the source, just in case you ever need to change anything.
@@ -220,3 +220,91 @@ def PG19(nV, sig):
 
 def PG20(nV, sig):
 	return ((np.exp((nV*(-2 + nV*sig**2))/2.)*nV**20*(1 + sig**2*(190 - 20*nV + 95*(153 + 2*(-18 + nV)*nV)*sig**2 - 570*(-1020 + nV*(408 + nV*(-51 + 2*nV)))*sig**4 + 4845*(2730 + nV*(-1680 + nV*(360 + (-32 + nV)*nV)))*sig**6 - 3876*(-45045 + 2*nV*(20475 + nV*(-6825 + nV*(1050 + nV*(-75 + 2*nV)))))*sig**8 + 9690*(135135 + 2*nV*(-90090 + nV*(45045 + nV*(-10920 + nV*(1365 + 2*(-42 + nV)*nV)))))*sig**10 - 19380*(-270270 + nV*(540540 + nV*(-405405 + 2*nV*(75075 + nV*(-15015 + nV*(1638 + nV*(-91 + 2*nV)))))))*sig**12 + 62985*(155925 + 2*nV*(-249480 + nV*(291060 + nV*(-166320 + nV*(51975 + nV*(-9240 + nV*(924 + (-48 + nV)*nV)))))))*sig**14 - 41990*(-155925 + 2*nV*(467775 + nV*(-935550 + nV*(873180 + nV*(-436590 + nV*(124740 + nV*(-20790 + nV*(1980 + nV*(-99 + 2*nV)))))))))*sig**16 + 46189*(14175 + 2*nV*(-141750 + nV*(637875 + nV*(-1134000 + nV*(992250 + nV*(-476280 + nV*(132300 + nV*(-21600 + nV*(2025 + 2*(-50 + nV)*nV)))))))))*sig**18 - 41990*nV**2*(-155925 + 2*nV*(467775 + nV*(-935550 + nV*(873180 + nV*(-436590 + nV*(124740 + nV*(-20790 + nV*(1980 + nV*(-99 + 2*nV)))))))))*sig**20 + 62985*nV**4*(155925 + 2*nV*(-249480 + nV*(291060 + nV*(-166320 + nV*(51975 + nV*(-9240 + nV*(924 + (-48 + nV)*nV)))))))*sig**22 - 19380*nV**6*(-270270 + nV*(540540 + nV*(-405405 + 2*nV*(75075 + nV*(-15015 + nV*(1638 + nV*(-91 + 2*nV)))))))*sig**24 + 9690*nV**8*(135135 + 2*nV*(-90090 + nV*(45045 + nV*(-10920 + nV*(1365 + 2*(-42 + nV)*nV)))))*sig**26 - 3876*nV**10*(-45045 + 2*nV*(20475 + nV*(-6825 + nV*(1050 + nV*(-75 + 2*nV)))))*sig**28 + 4845*nV**12*(2730 + nV*(-1680 + nV*(360 + (-32 + nV)*nV)))*sig**30 - 570*nV**14*(-1020 + nV*(408 + nV*(-51 + 2*nV)))*sig**32 + 95*nV**16*(153 + 2*(-18 + nV)*nV)*sig**34 + 10*(19 - 2*nV)*nV**18*sig**36 + nV**20*sig**38)))/2.43290200817664e18)
+
+
+
+# Perform unit tests if this file is run as a script
+if __name__ == "__main__":
+	np.seterr(over='ignore', under='ignore', invalid='ignore')
+	from pathlib import Path
+	Path("./test_outputs/").mkdir(parents=True, exist_ok=True)
+	
+
+	# Output sigma = 0 gaussian tests, compared to poisson
+	import matplotlib.pyplot as plt
+	dcount = 1e-6
+	ylim = 1e-3
+	for k in np.arange(1, 13 + 1):
+		plt.figure(k, figsize=(12,8))
+
+		# X axis
+		nV = np.logspace(np.log10(dcount), np.log10(40*k), 1000)
+		x = nV**(1/3)
+
+		# Poisson result
+		pois = 1 - np.sum([PPoisson(kk-1, nV) for kk in range(0,k+1)], axis=0)
+		poisson = np.minimum(pois, 1-pois)
+		xpois = x[poisson>ylim]
+		poisson = poisson[poisson>ylim]
+
+		# Gaussian result
+		sig = 0
+		gauss = CDFGaussian(k-1, nV, sig)
+		gaussian = np.minimum(gauss, 1-gauss)
+		xgauss = x[gaussian>ylim]
+		gaussian = gaussian[gaussian>ylim]
+
+		# Plot and label
+		plt.loglog(xpois, poisson, label='Poisson')
+		plt.loglog(xgauss, gaussian, '--', label="Gaussian(sig=0)")
+		plt.xlabel("Distance")
+		plt.ylabel(f"GRF {k}NN Peaked CDF")
+		plt.title(f"GRF {k}NN Peaked CDF")
+		plt.ylim(ylim)
+		plt.legend()
+		plt.grid()
+
+		# Save test output
+		plt.savefig(f"test_outputs/gauss_zerosig_{k}", dpi=230)
+		plt.clf()
+
+	# Output gaussian tests, compared to poisson
+	import matplotlib.pyplot as plt
+	dcount = 1e-7
+	ylim = 1e-3
+	for k in np.arange(1, 13 + 1):
+		plt.figure(k, figsize=(12,8))
+
+		# X axis
+		nV = np.logspace(np.log10(dcount), np.log10(40*k), 1000)
+		x = nV**(1/3)
+
+		# Poisson result
+		pois = 1 - np.sum([PPoisson(kk-1, nV) for kk in range(0,k+1)], axis=0)
+		poisson = np.minimum(pois, 1-pois)
+		xpois = x[poisson>ylim]
+		poisson = poisson[poisson>ylim]
+
+		# Gaussian result
+		sig = 1e-3 * nV**(-3/2) * (1 - np.exp(-nV))
+		gauss = CDFGaussian(k-1, nV, sig)
+		gaussian = np.minimum(gauss, 1-gauss)
+		xgauss = x[gaussian>ylim]
+		gaussian = gaussian[gaussian>ylim]
+
+		# Plot and label
+		plt.loglog(xpois, poisson, label='Poisson')
+		plt.loglog(xgauss, gaussian, '--', label="Gaussian")
+		plt.xlabel("Distance")
+		plt.ylabel(f"GRF {k}NN Peaked CDF")
+		plt.title(f"GRF {k}NN Peaked CDF")
+		plt.ylim(ylim)
+		plt.legend()
+		plt.grid()
+
+		# Save test output
+		plt.savefig(f"test_outputs/gauss_nonzerosig_{k}", dpi=230)
+		plt.clf()
+
+
+	
