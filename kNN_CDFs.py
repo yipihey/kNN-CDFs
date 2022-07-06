@@ -1,7 +1,7 @@
 import numpy as np
 import scipy.spatial
 import sys
-sys.path.append('/Users/tabel/Research/codes/SEdist/')
+#sys.path.append('/Users/tabel/Research/codes/SEdist/')
 from SEdist import SE_distribution
 
 def VolumekNN(xin, xout, k=1, periodic=0):
